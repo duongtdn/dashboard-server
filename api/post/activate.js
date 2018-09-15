@@ -16,10 +16,11 @@ function activate(db) {
     const number = invoice.number;
     const uid = invoice.billTo.uid;
     const courses = invoice.courses; 
+    const comment = invoice.comment;
 
     const promises = [];
 
-    promises.push( _resolveInvoice(db, {updatedBy, number}) )
+    promises.push( _resolveInvoice(db, {updatedBy, number, comment}) )
 
     courses.forEach(courseId => promises.push( _activateEnrollment(db, {uid, courseId, updatedBy})) )
 
@@ -45,12 +46,13 @@ function _activateEnrollment(db, {uid, courseId, updatedBy}) {
   })
 }
 
-function _resolveInvoice(db, {updatedBy, number}) {
+function _resolveInvoice(db, {updatedBy, number, comment}) {
   return new Promise((resolve, reject) => {
     db.invoice.resolve(
-      {updatedBy, number, status: 'paid'},
+      {updatedBy, number, comment, status: 'paid'},
       (err, data) => {
         if (err) {
+          console.log(err)
           reject();
         } else {
           resolve(data);

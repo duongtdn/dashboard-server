@@ -22,7 +22,7 @@ function activate(db) {
 
     promises.push( _resolveInvoice(db, {updatedBy, number, comment}) )
 
-    courses.forEach(courseId => promises.push( _activateEnrollment(db, {uid, courseId, updatedBy})) )
+    courses.forEach(courseId => promises.push( _activateEnrollment(db, {uid, courseId, activatedBy: updatedBy})) )
 
     Promise.all(promises)
       .then( values => res.status(200).json({status: 'updated'}) )
@@ -32,10 +32,10 @@ function activate(db) {
   }
 }
 
-function _activateEnrollment(db, {uid, courseId, updatedBy}) {
+function _activateEnrollment(db, {uid, courseId, activatedBy}) {
   return new Promise((resolve, reject) => {
     db.enroll.setStatus(
-      {uid, courseId, updatedBy, status: 'active'},
+      {uid, courseId, activatedBy, status: 'active'},
       (err, data) => {
         if (err) {
           reject();

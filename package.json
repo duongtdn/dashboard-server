@@ -1,5 +1,5 @@
 {
-  "name": "dashboard-server",
+  "name": "@sglearn/dashboard-server",
   "version": "1.0.0",
   "description": "sglearn: dashboard for admin, backend services",
   "main": "index.js",
@@ -9,21 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/duongtdn/dashboard-server.git"
+    "url": "git+https://github.com/sglearn/dashboard-server.git"
   },
   "author": "duongtdn",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/duongtdn/dashboard-server/issues"
+    "url": "https://github.com/sglearn/dashboard-server/issues"
   },
-  "homepage": "https://github.com/duongtdn/dashboard-server#readme",
+  "homepage": "https://github.com/sglearn/dashboard-server#readme",
   "devDependencies": {
     "database-abstractor": "^1.0.0",
     "database-test-helper": "^1.0.0",
-    "enrolldb-test-helper": "^1.0.0",
-    "enrolldb-dynamodb-driver": "^1.0.0",
-    "invoicedb-test-helper": "^1.0.0",
-    "invoicedb-dynamodb-driver": "^1.0.0",
+    "@sglearn/enrolldb-test-helper": "^1.0.0",
+    "@sglearn/enrolldb-dynamodb-driver": "^1.0.0",
+    "@sglearn/invoicedb-test-helper": "^1.0.0",
+    "@sglearn/invoicedb-dynamodb-driver": "^1.0.0",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "body-parser": "^1.18.2",

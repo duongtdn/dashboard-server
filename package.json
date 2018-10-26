@@ -1,8 +1,8 @@
 {
   "name": "@sglearn/dashboard-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "sglearn: dashboard for admin, backend services",
-  "main": "index.js",
+  "main": "api/main.js",
   "scripts": {
     "local": "node example/server.local.js",
     "example": "npm run local"

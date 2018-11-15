@@ -22,15 +22,39 @@ function activate(db) {
 
     promises.push( _resolveInvoice(db, {updatedBy, number, resolvedComment}) )
 
-    courses.forEach(courseId => promises.push( _activateEnrollment(db, {uid, courseId, activatedBy: updatedBy})) )
+    courses.forEach(course => promises.push( _activateEnrollment(db, {uid, courseId: course.courseId, activatedBy: updatedBy})) )
 
     Promise.all(promises)
-      .then( values => res.status(200).json({status: 'updated'}) )
+      .then( values => next() )
       .catch( error => res.status(400).send() )
 
     
   }
 }
+
+function sendEmail(db, helper) {
+  return function(req, res, next) {
+    if (helper && helper.sendEmail) {
+      const invoice = req.body.invoice;
+      const recipient = invoice.billTo.email;
+      const courses = invoice.courses; 
+      const customer = 'Valued Customer'
+      helper.sendEmail({recipient, courses, customer}, err => {
+        next()
+      })
+    } else {
+      next()
+    }
+  }
+}
+
+function final() {
+  return function(req, res) {
+    res.status(200).json({status: 'updated'})
+  }
+}
+
+
 
 function _activateEnrollment(db, {uid, courseId, activatedBy}) {
   return new Promise((resolve, reject) => {
@@ -61,4 +85,4 @@ function _resolveInvoice(db, {updatedBy, number, resolvedComment}) {
   })
 }
 
-module.exports = [authen, activate]
+module.exports = [authen, activate, sendEmail, final]

@@ -9,7 +9,7 @@ function authen() {
 }
 
 function activate(db) {
-  return function(req, res) {
+  return function(req, res, next) {
     const updatedBy = req.user.uid;
 
     const invoice = req.body.invoice;
@@ -26,7 +26,7 @@ function activate(db) {
 
     Promise.all(promises)
       .then( values => next() )
-      .catch( error => res.status(400).send() )
+      .catch( error => res.status(400).send({error}) )
 
     
   }
@@ -62,7 +62,8 @@ function _activateEnrollment(db, {uid, courseId, activatedBy}) {
       {uid, courseId, activatedBy, status: 'active'},
       (err, data) => {
         if (err) {
-          reject();
+          console.log(err)
+          reject(err);
         } else {
           resolve(data);
         }
@@ -77,7 +78,7 @@ function _resolveInvoice(db, {updatedBy, number, resolvedComment}) {
       (err, data) => {
         if (err) {
           console.log(err)
-          reject();
+          reject(err);
         } else {
           resolve(data);
         }

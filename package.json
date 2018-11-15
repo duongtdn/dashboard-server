@@ -1,6 +1,6 @@
 {
   "name": "@sglearn/dashboard-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "sglearn: dashboard for admin, backend services",
   "main": "api/main.js",
   "scripts": {
